@@ -1,4 +1,4 @@
-export default async function fetchData(url: string){
+export default async function fetchData<T>(url: string): Promise<T | null>{
     try{
         const response = await fetch(url);
         if(!response.ok){
@@ -7,6 +7,7 @@ export default async function fetchData(url: string){
         const json = await response.json();
         return json;
     }catch(error){
-
+        if(error instanceof Error) console.error(`Erro no fetchData: ${error.message}`)
+        return null;
     }
 }

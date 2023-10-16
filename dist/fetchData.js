@@ -8,6 +8,9 @@ export default async function fetchData(url) {
         return json;
     }
     catch (error) {
+        if (error instanceof Error)
+            console.error(`Erro no fetchData: ${error.message}`);
+        return null;
     }
 }
 //# sourceMappingURL=fetchData.js.map
