@@ -1,4 +1,5 @@
 import currencyToNumber from "./currencyToNumber.js";
+import stringToDate from "./stringToDate.js";
 
 declare global {
     type StatusTransaction = "Paga" | "Recusada pela operadora de cartão" | "Aguardando pagamento" | "Estornada";
@@ -33,6 +34,7 @@ export default function normalizeTransaction(transaction: APITransaction){
         nome: transaction.Nome,
         id: transaction.ID,
         data: transaction.Data,
+        dataTransformada: stringToDate(transaction.Data),
         status: transaction.Status,
         email: transaction.Email,
         moeda: transaction["Valor (R$)"],
