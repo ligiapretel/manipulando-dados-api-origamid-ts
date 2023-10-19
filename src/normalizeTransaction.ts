@@ -17,29 +17,28 @@ declare global {
     }
 
     interface FormattedTransaction {
-        nome: string;
+        name: string;
         id: number;
-        data: string;
+        payDay: Date;
         status: StatusTransaction;
         email: string;
-        moeda: string;
-        valor: number | null;
-        pagamento: PaymentTransaction;
-        novo: boolean;
+        currency: string;
+        value: number | null;
+        payment: PaymentTransaction;
+        newCustomer: boolean;
     }
 }
 
-export default function normalizeTransaction(transaction: APITransaction){
+export default function normalizeTransaction(transaction: APITransaction): FormattedTransaction{
     return{
-        nome: transaction.Nome,
+        name: transaction.Nome,
         id: transaction.ID,
-        data: transaction.Data,
-        dataTransformada: stringToDate(transaction.Data),
+        payDay: stringToDate(transaction.Data),
         status: transaction.Status,
         email: transaction.Email,
-        moeda: transaction["Valor (R$)"],
-        valor: currencyToNumber(transaction["Valor (R$)"]),
-        pagamento: transaction["Forma de Pagamento"],
-        novo: Boolean(transaction["Cliente Novo"]),
+        currency: transaction["Valor (R$)"],
+        value: currencyToNumber(transaction["Valor (R$)"]),
+        payment: transaction["Forma de Pagamento"],
+        newCustomer: Boolean(transaction["Cliente Novo"]),
     }
 }

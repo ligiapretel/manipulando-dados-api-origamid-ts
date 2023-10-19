@@ -5,7 +5,23 @@ async function handleData() {
     if (!data)
         return;
     const transactions = data.map(normalizeTransaction);
-    console.log(transactions);
+    fillTable(transactions);
+}
+function fillTable(transactions) {
+    const table = document.querySelector("#transactions-table tbody");
+    if (!table)
+        return;
+    transactions.forEach((item) => {
+        table.innerHTML += `
+            <tr>
+                <td>${item.name}</td>
+                <td>${item.email}</td>
+                <td>R$ ${item.currency}</td>
+                <td>${item.payment}</td>
+                <td>${item.status}</td>
+            </tr>
+        `;
+    });
 }
 handleData();
 //# sourceMappingURL=script.js.map
