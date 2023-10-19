@@ -1,3 +1,4 @@
+import Statistics from "./Statistics.js";
 import fetchData from "./fetchData.js";
 import normalizeTransaction from "./normalizeTransaction.js";
 
@@ -9,6 +10,21 @@ async function handleData(){
     const transactions = data.map(normalizeTransaction);
 
     fillTable(transactions);
+    fillStatistics(transactions);
+}
+
+function fillStatistics(transactions: FormattedTransaction[]): void{
+    const data = new Statistics(transactions);
+
+    const totalElement = document.querySelector<HTMLElement>('#total span');
+
+    if(totalElement){
+        totalElement.innerText = (data.total).toLocaleString('pt-BR', 
+            {
+                style: 'currency', 
+                currency: 'BRL'
+            });
+    }
 }
 
 function fillTable(transactions: FormattedTransaction[]): void{
