@@ -1,4 +1,5 @@
 import Statistics from "./Statistics.js";
+import { CountList } from "./countBy.js";
 import fetchData from "./fetchData.js";
 import normalizeTransaction from "./normalizeTransaction.js";
 
@@ -13,8 +14,22 @@ async function handleData(){
     fillStatistics(transactions);
 }
 
+function fillPaymentResume(list: CountList, containerId: string): void{
+    const containerElement = document.getElementById(containerId);
+
+    if(containerElement){
+        const paymentKeys = Object.keys(list);
+        paymentKeys.forEach((key) => {
+            containerElement.innerHTML += `<p>${key}: ${list[key]}</p>`
+        })
+    }
+}
+
 function fillStatistics(transactions: FormattedTransaction[]): void{
     const data = new Statistics(transactions);
+
+    fillPaymentResume(data.payment,'payment-container');
+    fillPaymentResume(data.status,'status-container');
 
     const totalElement = document.querySelector<HTMLElement>('#total span');
 

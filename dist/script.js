@@ -9,8 +9,19 @@ async function handleData() {
     fillTable(transactions);
     fillStatistics(transactions);
 }
+function fillPaymentResume(list, containerId) {
+    const containerElement = document.getElementById(containerId);
+    if (containerElement) {
+        const paymentKeys = Object.keys(list);
+        paymentKeys.forEach((key) => {
+            containerElement.innerHTML += `<p>${key}: ${list[key]}</p>`;
+        });
+    }
+}
 function fillStatistics(transactions) {
     const data = new Statistics(transactions);
+    fillPaymentResume(data.payment, 'payment-container');
+    fillPaymentResume(data.status, 'status-container');
     const totalElement = document.querySelector('#total span');
     if (totalElement) {
         totalElement.innerText = (data.total).toLocaleString('pt-BR', {
