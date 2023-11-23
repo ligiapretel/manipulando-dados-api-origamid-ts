@@ -40,6 +40,12 @@ function fillStatistics(transactions: FormattedTransaction[]): void{
                 currency: 'BRL'
             });
     }
+
+    const bestDayElement = document.querySelector<HTMLElement>('#best-day span');
+
+    if(bestDayElement){
+        bestDayElement.innerText = data.bestDay[0];
+    }
 }
 
 function fillTable(transactions: FormattedTransaction[]): void{

@@ -29,6 +29,10 @@ function fillStatistics(transactions) {
             currency: 'BRL'
         });
     }
+    const bestDayElement = document.querySelector('#best-day span');
+    if (bestDayElement) {
+        bestDayElement.innerText = data.bestDay[0];
+    }
 }
 function fillTable(transactions) {
     const table = document.querySelector("#transactions-table tbody");
